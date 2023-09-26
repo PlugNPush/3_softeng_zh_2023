@@ -1,0 +1,6 @@
+[toolchain]
+# There is nothing special about this release of nightly,
+# we simply pin it so rustup doesn't download the newest one every day.
+# This may be updated occasionally.
+channel = "nightly-2023-09-25"
+targets = ["wasm32-unknown-unknown"]

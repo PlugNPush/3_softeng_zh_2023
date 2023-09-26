@@ -1,0 +1,41 @@
+User.shape: person
+
+User -> softw_eng.app
+
+softw_eng: {
+
+  label: "SoftwEng Project"
+  app: {
+    label: "Web App [Rust, Leptos SPA, Tailwind]"
+    description: {
+      shape: text
+      label: "displays temperature measurements"
+    }
+  }
+
+  app -> backend: |md
+    fetches data
+    [REST API]
+  |
+
+  backend: {
+    label: "Web Service [Rust, Axum]"
+    description: {
+      shape: text
+      label: "stores temperature measurements"
+    }
+  }
+
+  microcontroller: {
+    label: "Microcontroller [Rust, ? ]"
+    description: {
+      shape: text
+      label: "records temperature measurements"
+    }
+  }
+
+  backend <- microcontroller: |md
+    sends measurements
+    [ ? ]
+  |
+}

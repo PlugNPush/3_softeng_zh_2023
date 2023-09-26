@@ -1,0 +1,24 @@
+[workspace]
+members = ["models", "server", "app"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+description = "SoftwEng Project - temperature sensor"
+license = "Unlicense"
+repository = "https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023"
+authors = [
+    "Andri Wild <andri.wild@students.fhnw.ch>",
+    "Daniel von Atzigen <daniel.vonatzigen@students.fhnw.ch>",
+    "Michael Nass <michael.nass@students.bfh.ch>",
+    "Remo Senekowitsch <senekrem@students.zhaw.ch>",
+    "Sebastian Hugentobler <sebastian.hugentobler@students.fhnw.ch>",
+    "Sebastian von Allmen <sebastianjoel.vonallmen@students.bfh.ch>",
+    "Tobias Wyss <tobias.wyss@students.fhnw.ch>",
+]
+
+[workspace.dependencies]
+chrono = { version = "0.4.31", features = ["serde"] }
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.107"

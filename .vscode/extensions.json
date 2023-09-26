@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ecmel.vscode-html-css",
+        "bradlc.vscode-tailwindcss",
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "terrastruct.d2",
+        "esbenp.prettier-vscode"
+    ]
+}

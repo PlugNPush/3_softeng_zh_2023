@@ -1,0 +1,12 @@
+# rust
+target
+**/*.rs.bk
+
+# leptos / frontend
+app/dist
+
+# mdbook
+docs/book
+
+# Mac OS shenanigans
+.DS_Store

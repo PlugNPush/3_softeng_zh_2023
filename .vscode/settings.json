@@ -1,0 +1,38 @@
+{
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "on",
+    "strings": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.rs": "rust"
+  },
+  // recommended by leptos
+  // https://github.com/leptos-rs/leptos/tree/main/examples/tailwind_csr_trunk#setting-up-with-vs-code-and-additional-tools
+  "emmet.includeLanguages": {
+    "rust": "html",
+    "*.rs": "html"
+  },
+  "tailwindCSS.includeLanguages": {
+      "rust": "html",
+      "*.rs": "html"
+  },
+  "css.validate": false,
+  "tailwindCSS.colorDecorators": false,
+  //
+  // hypothetical setting for auto-complete with an
+  // imaginary tailwind-merge-rs
+  // "tailwindCSS.experimental.classRegex": [
+  //   [
+  //     "tw_merge\\(([^)]*)\\)",
+  //     "\"([^\"]*)\"",
+  //   ]
+  // ],
+}

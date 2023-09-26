@@ -1,0 +1,21 @@
+[book]
+authors = [
+    "Andri Wild <andri.wild@students.fhnw.ch>",
+    "Daniel von Atzigen <daniel.vonatzigen@students.fhnw.ch>",
+    "Michael Nass <michael.nass@students.bfh.ch>",
+    "Remo Senekowitsch <senekrem@students.zhaw.ch>",
+    "Sebastian Hugentobler <sebastian.hugentobler@students.fhnw.ch>",
+    "Sebastian von Allmen <sebastianjoel.vonallmen@students.bfh.ch>",
+    "Tobias Wyss <tobias.wyss@students.fhnw.ch>",
+]
+language = "en"
+multilingual = false
+src = "src"
+title = "SoftwEng Documentation"
+
+[output.html]
+site-url = "/docs/"
+
+[output.html.fold]
+enable = true
+level = 0
