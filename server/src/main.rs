@@ -1,6 +1,5 @@
 use axum::Router;
 use clap::Parser;
-use models::{Id, TemperatureMeasurement};
 use server::{config::Config, docs::docs_handler, frontend::frontend_handler, router::api_router};
 use std::net::SocketAddr;
 use tower_http::{compression::CompressionLayer, trace::TraceLayer};
@@ -8,13 +7,6 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
 async fn main() {
-    let m = TemperatureMeasurement {
-        id: Id::random(),
-        timestamp: chrono::DateTime::<chrono::Utc>::default(),
-        temperature: 1234,
-    };
-    println!("{:?}", serde_json::to_string(&m));
-
     let config = Config::parse();
 
     tracing_subscriber::registry()
