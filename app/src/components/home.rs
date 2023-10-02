@@ -9,9 +9,8 @@ static DOCS_HREF: &str = "http://localhost:5000";
 static DOCS_HREF: &str = "/docs";
 
 #[component]
-pub fn Home(cx: Scope) -> impl IntoView {
+pub fn Home() -> impl IntoView {
     let measurements = create_resource_with_initial_value(
-        cx,
         || (),
         |_| async {
             gloo::net::http::Request::get("/api/measurements")
@@ -25,7 +24,7 @@ pub fn Home(cx: Scope) -> impl IntoView {
         Some(Vec::new()),
     );
 
-    view! { cx,
+    view! {
         <div class="h-screen flex flex-col gap-2 flex-nowrap">
 
             // tab bar, kinda empty right now
@@ -49,17 +48,17 @@ pub fn Home(cx: Scope) -> impl IntoView {
 
             <div class="flex flex-col w-full items-center overflow-scroll">
                 <For
-                    each=move || measurements.read(cx).unwrap()
+                    each=move || measurements().unwrap()
                     key=move |m| m.id.clone()
-                    view=|cx, m| view! { cx,
-                        <div class="flex gap-2 p-2">
-                            <div class="flex flex-col gap-2">
-                                <div class="text-2xl">{ m.temperature }"°C"</div>
-                                <div class="text-sm">{ m.timestamp.to_string() }</div>
-                            </div>
+                    let:m
+                >
+                    <div class="flex gap-2 p-2">
+                        <div class="flex flex-col gap-2">
+                            <div class="text-2xl">{ m.temperature }"°C"</div>
+                            <div class="text-sm">{ m.timestamp.to_string() }</div>
                         </div>
-                    }
-                />
+                    </div>
+                </For>
             </div>
         </div>
     }

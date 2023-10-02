@@ -4,8 +4,8 @@ use leptos_router::*;
 use crate::components::Home;
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    view! { cx,
+pub fn App() -> impl IntoView {
+    view! {
         <Router>
             <Providers>
                 <AppRoutes/>
@@ -15,17 +15,17 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 
 #[component]
-pub fn Providers(cx: Scope, children: Children) -> impl IntoView {
+pub fn Providers(children: Children) -> impl IntoView {
     // add providers here if needed
 
-    children(cx)
+    children()
 }
 
 #[component]
-pub fn AppRoutes(cx: Scope) -> impl IntoView {
-    view! { cx,
+pub fn AppRoutes() -> impl IntoView {
+    view! {
         <Routes>
-            <Route path="/" view=|cx| view! { cx, <Home/> }/>
+            <Route path="/" view=Home />
             // add more routes here if needed
         </Routes>
     }
