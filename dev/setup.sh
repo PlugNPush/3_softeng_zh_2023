@@ -21,7 +21,7 @@ if ! which cargo-binstall &> /dev/null ; then
 fi
 if ! which just &> /dev/null ; then
     echo "installing the just command runner..."
-    cargo install -y just
+    cargo binstall -y just
 fi
 if ! which trunk &> /dev/null ; then
     echo "installing trunk for webassembly frontend..."
