@@ -8,7 +8,8 @@
   - run `just zellij` (terminal multiplexer which runs all dev processes.
     Frontend, backend, documentation and D2 diagrams all auto-reload on change.)
 - insert a random measurement with `just insert-random`
-  (there is no push via websocket, gotta reload the web page to see the new measurement)
+  (there is no push via websocket,
+  gotta click the reload button to see the new measurement)
 
 ---
 

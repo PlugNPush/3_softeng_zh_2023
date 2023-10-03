@@ -10,6 +10,7 @@ mod info_circle;
 mod pencil_square;
 mod plus;
 mod question_mark_circle;
+mod reload;
 mod x_mark;
 
 pub use arrow_right_rectangle::ArrowRightOnRectangleIcon;
@@ -17,4 +18,5 @@ pub use info_circle::InfoCircleIcon;
 pub use pencil_square::PencilSquareIcon;
 pub use plus::PlusIcon;
 pub use question_mark_circle::QuestionMarkCircleIcon;
+pub use reload::ReloadIcon;
 pub use x_mark::XMarkIcon;

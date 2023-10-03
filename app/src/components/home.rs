@@ -1,7 +1,10 @@
 use leptos::*;
 use models::TemperatureMeasurement;
 
-use crate::{components::FlexSpace, icons::InfoCircleIcon};
+use crate::{
+    components::{FlexSpace, IconButton},
+    icons::{InfoCircleIcon, ReloadIcon},
+};
 
 #[cfg(debug_assertions)]
 static DOCS_HREF: &str = "http://localhost:5000";
@@ -35,15 +38,19 @@ pub fn Home() -> impl IntoView {
                     "Temperature Measurements"
                 </div>
 
-                <FlexSpace />
-
-                <a
-                    class="bg-slate-600 rounded-full p-2 w-min absolute right-2 top-2"
-                    href=DOCS_HREF
-                    rel="external" // make sure leptos doesn't use client-side routing
-                >
-                    <InfoCircleIcon/>
-                </a>
+                <div class="flex-grow flex-1 flex gap-2 justify-end">
+                    <IconButton on:click=move |_| measurements.refetch() >
+                        <ReloadIcon/>
+                    </IconButton>
+                    <div class="bg-slate-600 rounded-full p-2 w-min">
+                        <a
+                            href=DOCS_HREF
+                            rel="external" // make sure leptos doesn't use client-side routing
+                        >
+                            <InfoCircleIcon/>
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="flex flex-col w-full items-center overflow-scroll">
