@@ -8,5 +8,5 @@ pub struct TemperatureMeasurement {
     pub id: Id<Self>,
     pub timestamp: DateTime<Utc>,
     // TODO document unit of measurement or use a dedicated type
-    pub temperature: u32,
+    pub temperature: i64,
 }

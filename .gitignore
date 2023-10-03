@@ -10,3 +10,6 @@ docs/book
 
 # Mac OS shenanigans
 .DS_Store
+
+# VSCode File History
+.history/
