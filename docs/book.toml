@@ -19,3 +19,13 @@ site-url = "/docs/"
 [output.html.fold]
 enable = true
 level = 0
+
+[output.pdf]
+
+# Apparantly, the backends are executed in alphabetical order.
+# Therefore, this will execute after the PDF backend.
+# Which is exactly what we want, to make sure the most recent PDF is copied.
+[output.pdf-copy]
+# Wondering about the relative paths?
+# Output commands are executed in a $BUILD_DIR/$BACKEND_NAME.
+command = "cp ../pdf/output.pdf ../../../design/design.pdf"
