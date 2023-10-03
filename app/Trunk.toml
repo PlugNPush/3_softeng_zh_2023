@@ -1,3 +1,9 @@
+# configuration options:
+# https://github.com/thedodd/trunk/blob/master/Trunk.toml
+
 [serve]
 port = 3000
 proxy_backend = "http://localhost:4000/api"
+
+[watch]
+watch = ["../models"]
