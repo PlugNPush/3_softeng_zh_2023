@@ -1,5 +1,5 @@
 use axum::{
-    routing::{get, post},
+    routing::{delete, get, post},
     Router,
 };
 
@@ -10,6 +10,8 @@ pub fn api_router() -> Router {
         // handlers
         .route("/measurements", get(tm::get_all))
         .route("/measurements", post(tm::insert))
+        .route("/measurements/random", post(tm::insert_random))
+        .route("/measurements", delete(tm::delete_all))
         //
         // shared state
         .with_state(AppState::default())

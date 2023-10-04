@@ -37,10 +37,6 @@ layout {
 			command "just"
 			args "watch"
 		}
-		pane name="insert-random" size="10%" {
-			command "just"
-			args "insert-random"
-		}
 	}
 	compact_tab name="term"
 }

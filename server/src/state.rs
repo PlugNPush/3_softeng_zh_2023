@@ -1,36 +1,27 @@
-use std::{collections::VecDeque, sync::Arc};
+use std::sync::Arc;
 
-use models::TemperatureMeasurement;
+use models::{MeasurementList, TemperatureMeasurement};
 use tokio::sync::Mutex;
 
-const MAX_MEASUREMENTS: usize = 100;
-
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct AppState {
-    measurements: Arc<Mutex<VecDeque<TemperatureMeasurement>>>,
+    measurements: Arc<Mutex<MeasurementList>>,
 }
 
 impl AppState {
     /// clones the measurements
-    pub async fn get_measurements(&self) -> Vec<TemperatureMeasurement> {
-        self.measurements.lock().await.clone().into()
+    pub async fn get_measurements(&self) -> MeasurementList {
+        self.measurements.lock().await.clone()
     }
 
     /// max capacity of 100 ([MAX_MEASUREMENTS]).
     /// If the queue is full, the oldest measurement is removed.
     pub async fn insert_measurement(&self, value: TemperatureMeasurement) {
         let mut guard = self.measurements.lock().await;
-        if guard.len() >= MAX_MEASUREMENTS {
-            guard.pop_front();
-        }
-        guard.push_back(value);
+        guard.insert(value);
     }
-}
 
-impl Default for AppState {
-    fn default() -> Self {
-        Self {
-            measurements: Arc::new(Mutex::new(VecDeque::with_capacity(MAX_MEASUREMENTS))),
-        }
+    pub async fn delete_all(&self) {
+        self.measurements.lock().await.clear();
     }
 }

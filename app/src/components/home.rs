@@ -1,71 +1,17 @@
 use leptos::*;
-use models::TemperatureMeasurement;
 
-use crate::{
-    components::{FlexSpace, IconButton},
-    icons::{InfoCircleIcon, ReloadIcon},
-};
-
-#[cfg(debug_assertions)]
-static DOCS_HREF: &str = "http://localhost:5000";
-#[cfg(not(debug_assertions))]
-static DOCS_HREF: &str = "/docs";
+use crate::components::{measurement_list::MeasurementList, TitleBar};
 
 #[component]
 pub fn Home() -> impl IntoView {
-    let measurements = create_resource_with_initial_value(
-        || (),
-        |_| async {
-            gloo::net::http::Request::get("/api/measurements")
-                .send()
-                .await
-                .unwrap()
-                .json::<Vec<TemperatureMeasurement>>()
-                .await
-                .unwrap()
-        },
-        Some(Vec::new()),
-    );
-
     view! {
         <div class="h-screen flex flex-col gap-2 flex-nowrap">
 
-            // tab bar, kinda empty right now
-            <div class="flex gap-2 p-2 w-full">
-                <FlexSpace />
+            <TitleBar />
 
-                <div class="text-2xl self-center">
-                    "Temperature Measurements"
-                </div>
-
-                <div class="flex-grow flex-1 flex gap-2 justify-end">
-                    <IconButton on:click=move |_| measurements.refetch() >
-                        <ReloadIcon/>
-                    </IconButton>
-                    <div class="bg-slate-600 rounded-full p-2 w-min">
-                        <a
-                            href=DOCS_HREF
-                            rel="external" // make sure leptos doesn't use client-side routing
-                        >
-                            <InfoCircleIcon/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col w-full items-center overflow-scroll">
-                <For
-                    each=move || measurements().unwrap()
-                    key=move |m| m.id.clone()
-                    let:m
-                >
-                    <div class="flex gap-2 p-2">
-                        <div class="flex flex-col gap-2">
-                            <div class="text-2xl">{ m.temperature }"°C"</div>
-                            <div class="text-sm">{ m.timestamp.to_string() }</div>
-                        </div>
-                    </div>
-                </For>
+            <div class="flex flex-col w-full items-center overflow-scroll
+                        relative h-full">
+                <MeasurementList />
             </div>
         </div>
     }

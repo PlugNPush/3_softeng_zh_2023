@@ -6,4 +6,4 @@ port = 3000
 proxy_backend = "http://localhost:4000/api"
 
 [watch]
-watch = ["../models"]
+watch = [".", "../models"]

@@ -11,6 +11,7 @@ mod pencil_square;
 mod plus;
 mod question_mark_circle;
 mod reload;
+mod trash;
 mod x_mark;
 
 pub use arrow_right_rectangle::ArrowRightOnRectangleIcon;
@@ -19,4 +20,5 @@ pub use pencil_square::PencilSquareIcon;
 pub use plus::PlusIcon;
 pub use question_mark_circle::QuestionMarkCircleIcon;
 pub use reload::ReloadIcon;
+pub use trash::TrashIcon;
 pub use x_mark::XMarkIcon;
