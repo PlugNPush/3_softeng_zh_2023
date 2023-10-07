@@ -3,7 +3,7 @@ use leptos::{component, view, IntoView};
 use crate::{
     components::IconButton,
     icons::ReloadIcon,
-    store::{use_store, Action},
+    state::{use_store, Action},
 };
 
 #[component]

@@ -1,6 +1,6 @@
 use leptos::*;
 
-use crate::store::use_store;
+use crate::state::use_store;
 
 mod measurement;
 
