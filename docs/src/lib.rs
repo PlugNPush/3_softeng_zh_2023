@@ -1,5 +1,1 @@
-use rust_embed::RustEmbed;
-
-#[derive(RustEmbed)]
-#[folder = "book/html"]
-pub struct EmbeddedDocs;
+include!(concat!(env!("OUT_DIR"), "/lib.rs"));
