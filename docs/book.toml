@@ -28,4 +28,4 @@ level = 0
 [output.pdf-copy]
 # Wondering about the relative paths?
 # Output commands are executed in a $BUILD_DIR/$BACKEND_NAME.
-command = "cp ../pdf/output.pdf ../../../design/design.pdf"
+command = "bash -c 'cp ../pdf/output.pdf \"$(git rev-parse --show-toplevel)\"/design/design.pdf || true'"

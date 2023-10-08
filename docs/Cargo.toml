@@ -1,0 +1,14 @@
+[package]
+name = "docs"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+rust-embed.workspace = true
+
+[build-dependencies]
+mdbook = "0.4.35"

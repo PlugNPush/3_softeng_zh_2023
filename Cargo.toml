@@ -1,5 +1,5 @@
 [workspace]
-members = ["models", "server", "app"]
+members = ["models", "server", "app", "docs"]
 resolver = "2"
 
 [workspace.package]
@@ -20,5 +20,6 @@ authors = [
 
 [workspace.dependencies]
 chrono = { version = "0.4.31", features = ["serde"] }
+rust-embed = { version = "6.6.0", features = ["axum"] }
 serde = { version = "1.0.188", features = ["derive"] }
 serde_json = "1.0.107"
