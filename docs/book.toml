@@ -16,10 +16,6 @@ title = "SoftwEng Documentation"
 [output.html]
 site-url = "/docs/"
 
-[output.html.fold]
-enable = true
-level = 0
-
 [output.pdf]
 
 # Apparantly, the backends are executed in alphabetical order.

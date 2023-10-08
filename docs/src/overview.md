@@ -1,6 +1,5 @@
 # Overview
 
-This is the documentation of a software project done for MSE SoftwEng 2023.
+This is the architecture documentation of the software project done for MSE TSM_SoftwEng 2023.
 
-1. [Contributing](./contributing.md)
-1. [Architecture](./architecture.md)
+If you are reading this as a PDF, note that there is a much prettier, interactive version embedded in the application itself.

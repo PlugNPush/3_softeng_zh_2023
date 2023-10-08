@@ -1,7 +1,4 @@
-# Architecture
-
-Some architecture documentation was developed
-within the scope of the SoftwEng lecture, which can be found here.
+# Architecture Diagrams
 
 ## C4 Container Diagram
 
