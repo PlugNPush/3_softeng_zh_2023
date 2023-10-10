@@ -12,4 +12,5 @@
     - [HTTP routing with axum](./ADR/002_axum.md)
     - [JSON with serde](./ADR/003_serde.md)
     - [SPA with Leptos](./ADR/004_leptos.md)
+    - [Notifications with WebSocket](./ADR/005_websocket.md)
 - [Architecture Diagrams](./diagrams.md)

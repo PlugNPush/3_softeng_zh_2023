@@ -1,11 +1,21 @@
 use std::sync::Arc;
 
-use models::{MeasurementList, TemperatureMeasurement};
-use tokio::sync::Mutex;
+use models::{MeasurementList, Notification, TemperatureMeasurement};
+use tokio::sync::{broadcast, Mutex};
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct AppState {
     measurements: Arc<Mutex<MeasurementList>>,
+    sender: Arc<broadcast::Sender<Notification>>,
+}
+
+impl Default for AppState {
+    fn default() -> Self {
+        Self {
+            measurements: Default::default(),
+            sender: Arc::new(broadcast::channel(100).0),
+        }
+    }
 }
 
 impl AppState {
@@ -14,14 +24,23 @@ impl AppState {
         self.measurements.lock().await.clone()
     }
 
-    /// max capacity of 100 ([MAX_MEASUREMENTS]).
-    /// If the queue is full, the oldest measurement is removed.
-    pub async fn insert_measurement(&self, value: TemperatureMeasurement) {
+    fn publish(&self, notification: Notification) {
+        // don't care if nobody is listening
+        self.sender.send(notification).ok();
+    }
+
+    pub async fn insert_measurement(&self, measurement: TemperatureMeasurement) {
         let mut guard = self.measurements.lock().await;
-        guard.insert(value);
+        guard.insert(measurement.clone());
+        self.publish(Notification::New(measurement));
     }
 
     pub async fn delete_all(&self) {
         self.measurements.lock().await.clear();
+        self.publish(Notification::Cleared);
+    }
+
+    pub fn subscribe(&self) -> broadcast::Receiver<Notification> {
+        self.sender.subscribe()
     }
 }

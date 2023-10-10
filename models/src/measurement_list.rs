@@ -1,4 +1,4 @@
-use std::collections::VecDeque;
+use std::collections::BTreeSet;
 
 use serde::{Deserialize, Serialize};
 
@@ -6,26 +6,18 @@ use crate::TemperatureMeasurement;
 
 const CAPACITY: usize = 100;
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct MeasurementList {
-    measurements: VecDeque<TemperatureMeasurement>,
-}
-
-impl Default for MeasurementList {
-    fn default() -> Self {
-        Self {
-            measurements: VecDeque::with_capacity(CAPACITY),
-        }
-    }
+    measurements: BTreeSet<TemperatureMeasurement>,
 }
 
 impl MeasurementList {
     pub fn insert(&mut self, measurement: TemperatureMeasurement) {
-        if self.measurements.len() >= CAPACITY {
-            self.measurements.pop_back();
+        self.measurements.insert(measurement);
+        if self.measurements.len() > CAPACITY {
+            self.measurements.pop_last();
         }
-        self.measurements.push_front(measurement);
     }
 
     pub fn clear(&mut self) {
@@ -35,7 +27,7 @@ impl MeasurementList {
 
 impl IntoIterator for MeasurementList {
     type Item = TemperatureMeasurement;
-    type IntoIter = std::collections::vec_deque::IntoIter<Self::Item>;
+    type IntoIter = std::collections::btree_set::IntoIter<Self::Item>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.measurements.into_iter()

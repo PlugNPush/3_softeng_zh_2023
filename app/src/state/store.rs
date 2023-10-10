@@ -1,6 +1,9 @@
 use leptos::*;
+use leptos_use::{use_websocket, UseWebsocketReturn};
+use models::Notification;
 
 use super::{
+    action::Action,
     middleware::{self, PreMiddlewareAction},
     reducer::reduce,
     State,
@@ -20,14 +23,33 @@ impl Store {
         };
         // Load initial state
         store.dispatch(PreMiddlewareAction::Reload);
+
+        let UseWebsocketReturn { message, .. } = use_websocket("/api/notifications");
+        create_effect(move |_| {
+            if let Some(message) = message.get() {
+                let notification = serde_json::from_str::<Notification>(&message).unwrap();
+                let action = match notification {
+                    Notification::New(measurements) => Action::Insert(measurements),
+                    Notification::Cleared => Action::Clear,
+                };
+                store.dispatch_without_middleware(action);
+            }
+        });
+
         store
+    }
+
+    fn dispatch_without_middleware(&self, action: Action) {
+        let new_state = reduce(&self.state.get_untracked(), action);
+        if new_state != self.state.get_untracked() {
+            self.state.set(new_state);
+        }
     }
 
     pub fn dispatch(self, action: PreMiddlewareAction) {
         spawn_local(async move {
             let action = middleware::process(action).await;
-            let new_state = reduce(&self.state.get_untracked(), action);
-            self.state.set(new_state);
+            self.dispatch_without_middleware(action);
         });
     }
 }

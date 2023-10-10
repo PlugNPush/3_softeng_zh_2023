@@ -3,7 +3,13 @@
 
 [serve]
 port = 3000
-proxy_backend = "http://localhost:4000/api"
 
 [watch]
 watch = [".", "../models"]
+
+[[proxy]]
+backend = "http://localhost:4000/api"
+
+[[proxy]]
+backend = "ws://localhost:4000/api/notifications"
+ws = true
