@@ -1,0 +1,12 @@
+shape: sequence_diagram
+
+User
+
+server: {
+    label: "Web service"
+}
+
+User.fetch -> server.fetch: "requests data"
+server.fetch -> User.fetch: "sends data"
+User.sub -> server.sub: "subscribes to notifications"
+server.sub -> User.sub: "connection established"

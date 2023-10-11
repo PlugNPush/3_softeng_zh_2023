@@ -1,0 +1,22 @@
+shape: sequence_diagram
+
+Microcontroller
+
+server: {
+    label: "Web service"
+}
+
+a: {
+    label: "Client A"
+}
+
+b: {
+    label: "Client B"
+}
+
+Microcontroller.new -> server.new: "sends measurement"
+server.new -> server.new: "stores measurement"
+server.new -> Microcontroller.new: "confirms"
+
+server -> a: "sends notification"
+server -> b: "sends notification"

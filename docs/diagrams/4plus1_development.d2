@@ -1,0 +1,36 @@
+models: {
+  label: "models\n\nshared data types"
+}
+
+models <- server
+models <- app
+
+server: {
+  handlers: {
+    label: "handlers\n\nprocess single\nHTTP requests"
+  }
+  handlers <- router
+  router: {
+    label: "router\n\nmaps\nHTTP requests\nto handlers"
+  }
+  router <- main
+  state: {
+    shape: cylinder
+    label: "state\n\nshared state\nacross handlers\n\n+ notifications"
+  }
+  state <- main
+}
+
+app: {
+  state: {
+    shape: cylinder
+    label: "state\n\nglobal, reactive state\n(Redux pattern)\n"
+
+    action <- middleware
+    action <- reducer
+    action <- store
+    middleware <- store
+    reducer <- store
+  }
+  state <- components
+}
