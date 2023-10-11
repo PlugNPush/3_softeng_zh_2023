@@ -7,10 +7,11 @@
 
 [Overview](./overview.md)
 
+- [C4 Model](./c4.md)
+- [4+1 Model](./4plus1.md)
 - [Architecture Decision Records](./ADR/index.md)
     - [Rust everywhere](./ADR/001_rust.md)
     - [HTTP routing with axum](./ADR/002_axum.md)
     - [JSON with serde](./ADR/003_serde.md)
     - [SPA with Leptos](./ADR/004_leptos.md)
     - [Notifications with WebSocket](./ADR/005_websocket.md)
-- [Architecture Diagrams](./diagrams.md)

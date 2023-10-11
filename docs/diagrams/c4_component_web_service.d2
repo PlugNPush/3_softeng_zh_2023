@@ -1,0 +1,44 @@
+http_client: {
+  label: "HTTP Client"
+  description: {
+    shape: text
+    label: "typically either a Person via their browser\nor the microcontroller sending data"
+  }
+}
+
+http_client -> web_service.router: "fetches data and\nrequests mutations"
+
+notif_subscriber: {
+  label: "Notification\nSubscriber"
+  shape: person
+}
+
+notif_subscriber <- web_service.notif_sender: "sends notifications"
+
+web_service: {
+  label: "Web Service"
+
+  router: {
+    label: "HTTP Router"
+  }
+
+  router -> notif_sender: "redirects subscription requests"
+
+  notif_sender: {
+    label: "Notification Broadcaster"
+    description: {
+      shape: text
+      label: "pushes notifications\nabout data mutations to all subscribers"
+    }
+  }
+
+  router -> handler: "routes HTTP requests"
+
+  handler: {
+    label: "HTTP Handler"
+    description: {
+      shape: text
+      label: "handles HTTP requests\nwith a specific route and method"
+    }
+  }
+}

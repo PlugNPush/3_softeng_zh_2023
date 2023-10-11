@@ -1,0 +1,30 @@
+spa: {
+  label: "SPA"
+
+  view: {
+    label: "View\n(Leptos\ncomponent\ntree)"
+  }
+
+  view -> Store: "dispatches actions"
+
+  Store -> view: "notifies about state changes"
+
+  Store -> Reducer: "(previous_state, action)"
+  Reducer -> Store: "new_state"
+
+  Store -> Middleware: "preprocesses actions"
+
+  notif_subscriber: {
+    label: "Notification\nsubscriber\n(Leptos effect)"
+  }
+
+  notif_subscriber -> Store: "dispatches actions"
+}
+
+web_service: {
+  label: "Web service"
+}
+
+web_service -> spa.notif_subscriber: "sends notifications"
+
+spa.Middleware -> web_service: "fetches data and\nrequests mutations"

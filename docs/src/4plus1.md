@@ -1,12 +1,4 @@
-# Architecture Diagrams
-
-## C4 Container Diagram
-
-<!-- https://c4model.com/ -->
-
-![c4 container](./assets/gen/c4_container.svg)
-
-## 4+1 model
+# 4+1 Model
 
 TODO
 <!-- https://en.wikipedia.org/wiki/4%2B1_architectural_view_model -->

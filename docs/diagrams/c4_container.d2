@@ -3,10 +3,10 @@ User.shape: person
 User -> softw_eng.app
 
 softw_eng: {
-
   label: "SoftwEng Project"
+
   app: {
-    label: "Web App [Rust, Leptos SPA, Tailwind]"
+    label: "Web App [Rust, Leptos SPA]"
     description: {
       shape: text
       label: "displays temperature measurements"
@@ -25,6 +25,11 @@ softw_eng: {
       label: "stores temperature measurements"
     }
   }
+
+  backend -> app: |md
+    pushes notifications
+    [WebSocket]
+  |
 
   microcontroller: {
     label: "Microcontroller [Rust, ? ]"
