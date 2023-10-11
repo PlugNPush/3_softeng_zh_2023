@@ -13,3 +13,7 @@ docs/book
 
 # VSCode File History
 .history/
+
+# GitLab Pages expects the static website (mdBook)
+# to be rendered in the public/ directory
+public

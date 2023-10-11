@@ -14,14 +14,6 @@ src = "src"
 title = "SoftwEng Documentation"
 
 [output.html]
-site-url = "/docs/"
-
-[output.pdf]
-
-# Apparantly, the backends are executed in alphabetical order.
-# Therefore, this will execute after the PDF backend.
-# Which is exactly what we want, to make sure the most recent PDF is copied.
-[output.pdf-copy]
-# Wondering about the relative paths?
-# Output commands are executed in a $BUILD_DIR/$BACKEND_NAME.
-command = "bash -c 'cp ../pdf/output.pdf \"$(git rev-parse --show-toplevel)\"/design/design.pdf || true'"
+# This is for GitLab Pages.
+# The version embedded in the backend overrides this value in build.rs.
+site-url = "/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/"

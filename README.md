@@ -4,6 +4,8 @@ This software project was implemented for the MSE TSM_SoftwEng lecture 2023.
 It consists of a microcontroller recording temperature data, which gets sent to a web service.
 The data can be viewed with a web-based GUI.
 
+The architecture documentation is deployed on [GitLab Pages](https://hslu.pages.switch.ch/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/overview.html).
+
 ## Contributing
 
 Getting setup for development should be as easy as running `./dev/setup.sh`.
@@ -22,9 +24,6 @@ You might want to quickly familiarize yourself with the following dev tools:
 
 [`just`]: https://github.com/casey/just?tab=readme-ov-file#just
 [`zellij`]: https://zellij.dev/about/
-
-The setup sometimes rebuilds the documentation PDF spuriously, even if there are no changes.
-Please discard the rebuilt PDF, unless you actually updated the documentation, to avoid noisy git diffs.
 
 ## Installation
 

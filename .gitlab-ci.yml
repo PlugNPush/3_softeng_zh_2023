@@ -1,0 +1,18 @@
+image: rust:latest
+
+before_script:
+  # install mdbook
+  - curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=dev
+  - mv dev/mdbook /usr/bin
+
+pages:
+  script:
+    - mdbook build docs --dest-dir ../public
+  artifacts:
+    paths:
+      # The folder that contains the files to be exposed at the Page URL
+      - public
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH

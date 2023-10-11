@@ -8,15 +8,13 @@ static CONFIG_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/book.toml");
 fn main() {
     let mut config = mdbook::Config::from_disk(CONFIG_PATH).expect("should load config");
 
-    // Running mdbook normally, we want the pdf backends to be enabled.
-    // This ensures we don't forget to update the PDF when we update the documentation.
-    // However, when building the documentation as a dependency of the backend,
-    // we don't want to regenerate the PDF. Otherwise the PDF often gets regenerated
-    // spuriously and it's annoying to have to `git reset` it every time.
-    //
-    // Therefore, we construct a new output table that only contains the HTML backend.
+    // For embedding, the documentation is served under the /docs/ prefix.
+    // see:
+    // https://rust-lang.github.io/mdBook/format/configuration/renderers.html?highlight=site-url#html-renderer-options
     let mut output_table = HashMap::new();
-    output_table.insert("html", config.get("output.html").unwrap().clone());
+    let mut html_table = HashMap::new();
+    html_table.insert("site-url", "/docs/");
+    output_table.insert("html", html_table);
     config.set("output", output_table).unwrap();
 
     let out_dir = std::env::var("OUT_DIR").unwrap();

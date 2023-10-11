@@ -39,13 +39,6 @@ if ! which mdbook &> /dev/null ; then
     echo "installing mdbook to build the documentation..."
     cargo binstall -y mdbook
 fi
-if ! which mdbook-pdf &> /dev/null ; then
-    echo "installing mdbook-pdf to build the documentation as a PDF..."
-    cargo binstall -y mdbook-pdf
-    # mdbook-pdf also needs a chromium-compatible browser to be installed.
-    # more information here:
-    # https://github.com/HollowMan6/mdbook-pdf?tab=readme-ov-file#installation--usage
-fi
 
 if ! which d2 &> /dev/null || [[ "$(d2 --version)" != "v0.6.1" ]] ; then
     echo "installing d2 diagram renderer..."
