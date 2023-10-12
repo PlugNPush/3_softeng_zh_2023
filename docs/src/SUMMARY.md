@@ -9,6 +9,7 @@
 
 - [C4 Model](./c4.md)
 - [4+1 Model](./4plus1.md)
+- [Architectural Styles and Patterns](./styles_and_patterns.md)
 - [Architecture Decision Records](./ADR/index.md)
     - [Rust everywhere](./ADR/001_rust.md)
     - [HTTP routing with axum](./ADR/002_axum.md)

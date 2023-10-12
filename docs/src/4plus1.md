@@ -23,6 +23,7 @@ image source: Wikipedia[^2]
 ## The Logical View
 
 Our domain model is embarrassingly simple.
+There are temperature measurements and they don't do much beyond existing.
 We shall resist the urge to add a second entity
 modeling the aggregation of the first,
 just to make this diagram look more interesting.
@@ -60,8 +61,6 @@ and they communicate via stateless protocols.
 The web service needs to ensure data consistency across several concurrent
 requests, but this is an internal concern of the web service not relevant
 at this level of abstraction.
-
-This is squarely an implementation of the client-server architectural style.
 
 ![4+1 process](./assets/gen/4plus1_process.svg)
 
