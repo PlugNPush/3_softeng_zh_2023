@@ -37,6 +37,7 @@ build:
 
 pages:
   script:
+    - ./dev/setup.sh
     - mdbook build docs --dest-dir ../public
   artifacts:
     paths:
