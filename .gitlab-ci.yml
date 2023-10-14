@@ -1,11 +1,39 @@
 image: rust:latest
 
-before_script:
-  # install mdbook
-  - curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=dev
-  - mv dev/mdbook /usr/bin
+stages:
+  - test
+  - build
+  - deploy
+
+format:
+  stage: test
+  script:
+    - cargo fmt --check
+
+lint:
+  stage: test
+  script:
+    - cargo clippy -- -D warnings
+
+test:
+  stage: test
+  script:
+    - cargo test
+
+build:
+  stage: build
+  script:
+    - ./dev/setup.sh
+    - (cd app && trunk build --release)
+    - cargo build --release --bin server
+    # make executable a little smaller. not that important.
+    - strip target/release/server
+  artifacts:
+    paths:
+      - target/release/server
 
 pages:
+  stage: deploy
   script:
     - mdbook build docs --dest-dir ../public
   artifacts:

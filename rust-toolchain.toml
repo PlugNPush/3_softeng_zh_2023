@@ -4,3 +4,4 @@
 # This may be updated occasionally.
 channel = "nightly-2023-09-25"
 targets = ["wasm32-unknown-unknown"]
+components = ["rustfmt", "clippy"]
