@@ -18,6 +18,9 @@ authors = [
     "Tobias Wyss <tobias.wyss@students.fhnw.ch>",
 ]
 
+[profile.release]
+strip = true
+
 [workspace.dependencies]
 chrono = { version = "0.4.31", features = ["serde"] }
 rust-embed = { version = "6.6.0", features = ["axum"] }

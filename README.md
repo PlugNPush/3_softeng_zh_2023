@@ -19,16 +19,36 @@ It's recommended to run `zellij` in a standalone terminal emulator to avoid keyb
 You can also figure out how to run everything manually by reading `./dev/zellij.kdl` and the `justfile`.
 
 You might want to quickly familiarize yourself with the following dev tools:
-- [`just`], a simple command runner
-- [`zellij`], a terminal workspace / multiplexer
+- [just], a simple command runner
+- [zellij], a terminal workspace / multiplexer
 
-[`just`]: https://github.com/casey/just?tab=readme-ov-file#just
-[`zellij`]: https://zellij.dev/about/
+[just]: https://github.com/casey/just?tab=readme-ov-file#just
+[zellij]: https://zellij.dev/about/
 
 ## Installation
 
-TODO (provide prebuilt binaries, docker images...)
--> [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
+There are two straight-forward ways to install / run a release build of the application.
+There are prebuilt binaries to download for `x86_64-unknown-linux-gnu`.
+There is also a Containerfile, but no published image, so you need to build it yourself.
+
+### Download the prebuilt binary
+
+Navigate [here][main-pipelines], where all pipelines for the main branch are listed.
+Pick the latest one, click on the build job and browse the artifacts.
+The binary should be there for you to download.
+
+[main-pipelines]: https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/pipelines?page=1&scope=all&ref=main
+
+### Build a container using Containerfile
+
+Clone the repository and do a podman or docker build.
+Next, run it. The port inside the container is 4000.
+Example:
+
+```sh
+podman build -t softw-eng .
+podman run -it --rm --init -p 4000:4000 softw-eng
+```
 
 ## Usage
 

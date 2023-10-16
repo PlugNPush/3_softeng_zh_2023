@@ -34,5 +34,12 @@ zellij:
     @killall trunk &> /dev/null || true
     @killall mdbook &> /dev/null || true
 
-insert-random:
-    @dev/insert_random.sh
+podman-build:
+    podman build -t softw-eng .
+
+podman-run:
+    podman run -it --rm -p 4000:4000 softw-eng
+
+dive:
+    # dive is a great container image inspection tool
+    dive podman://softw-eng
