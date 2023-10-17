@@ -33,3 +33,28 @@ impl IntoIterator for MeasurementList {
         self.measurements.into_iter()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn capacity_is_enforced() {
+        let mut list = MeasurementList::default();
+        for _ in 0..CAPACITY * 2 {
+            list.insert(TemperatureMeasurement::random());
+        }
+        assert_eq!(list.measurements.len(), CAPACITY);
+    }
+
+    #[test]
+    fn can_clear_list() {
+        let mut list = MeasurementList::default();
+        for _ in 0..10 {
+            list.insert(TemperatureMeasurement::random());
+        }
+        assert_eq!(list.measurements.len(), 10);
+        list.clear();
+        assert_eq!(list.measurements.len(), 0);
+    }
+}

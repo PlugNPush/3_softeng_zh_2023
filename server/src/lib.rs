@@ -21,15 +21,3 @@ pub mod frontend;
 
 /// This module contains the routes to the documentation.
 pub mod docs;
-
-/// doctest, can be removed once there are others.
-/// ```
-/// assert_eq!(2 + 2, 4);
-/// ```
-pub struct Foo;
-
-// unit test, can be removed once there are others.
-#[test]
-fn it_works() {
-    assert_eq!(2 + 2, 4);
-}

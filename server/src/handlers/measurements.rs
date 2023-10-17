@@ -1,6 +1,5 @@
 use axum::{extract::State, Json};
 use models::{Id, MeasurementList, TemperatureMeasurement};
-use rand::Rng;
 
 use crate::state::AppState;
 
@@ -15,11 +14,7 @@ pub async fn insert(state: State<AppState>, Json(mut measurement): Json<Temperat
 }
 
 pub async fn insert_random(state: State<AppState>) -> Json<TemperatureMeasurement> {
-    let measurement = TemperatureMeasurement {
-        id: Id::random(),
-        timestamp: chrono::Utc::now(),
-        temperature: rand::thread_rng().gen_range(-10..35),
-    };
+    let measurement = TemperatureMeasurement::random();
     state.insert_measurement(measurement.clone()).await;
     Json(measurement)
 }

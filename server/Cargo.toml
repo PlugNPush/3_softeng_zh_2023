@@ -14,7 +14,6 @@ clap = { version = "4.3.4", features = ["derive", "env"] }
 docs = { path = "../docs" }
 mime_guess = "2.0.4"
 models = { path = "../models" }
-rand = "0.8.5"
 rust-embed.workspace = true
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -27,3 +26,9 @@ tower-http = { version = "0.4.0", features = [
 ] }
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+
+[dev-dependencies]
+futures = "0.3"
+hyper = { version = "0.14.27", features = ["full"] }
+tokio-tungstenite = "0.20.1"
+tower = "0.4.13"

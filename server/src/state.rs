@@ -44,3 +44,31 @@ impl AppState {
         self.sender.subscribe()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn can_insert_and_get_measurements() {
+        let state = AppState::default();
+        let measurement = TemperatureMeasurement::random();
+        state.insert_measurement(measurement.clone()).await;
+        let measurements = state.get_measurements().await;
+
+        let mut iter = measurements.into_iter();
+        assert_eq!(iter.next(), Some(measurement));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[tokio::test]
+    async fn notifications_are_published() {
+        let state = AppState::default();
+        let mut receiver = state.subscribe();
+        let measurement = TemperatureMeasurement::random();
+        state.insert_measurement(measurement.clone()).await;
+
+        let notification = receiver.recv().await.unwrap();
+        assert_eq!(notification, Notification::New(measurement));
+    }
+}

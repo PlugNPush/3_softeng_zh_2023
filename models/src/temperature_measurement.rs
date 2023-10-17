@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use rand::Rng;
 use serde::{Deserialize, Serialize};
 
 use crate::id::Id;
@@ -29,5 +30,15 @@ impl Ord for TemperatureMeasurement {
 impl PartialOrd for TemperatureMeasurement {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         Some(self.cmp(other))
+    }
+}
+
+impl TemperatureMeasurement {
+    pub fn random() -> Self {
+        Self {
+            id: Id::random(),
+            timestamp: chrono::Utc::now(),
+            temperature: rand::thread_rng().gen_range(-10..35),
+        }
     }
 }
