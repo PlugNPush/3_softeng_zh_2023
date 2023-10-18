@@ -2,9 +2,12 @@
 # https://peterprototypes.com/blog/rust-dockerfile-boilerplate/
 
 # debian based
-FROM rust:latest as build
+FROM docker.io/rust:latest AS build
 
 WORKDIR /work
+
+ENV CARGO_BUILD_RUSTFLAGS="-C target-feature=+crt-static"
+ENV CARGO_BUILD_TARGET="x86_64-unknown-linux-musl"
 
 ENV TRUNK_ARCHIVE=trunk-x86_64-unknown-linux-gnu.tar.gz
 ENV TRUNK_VERSION=0.17.5
@@ -23,6 +26,7 @@ RUN cargo new --lib models && \
 COPY app/Cargo.toml ./app/
 COPY server/Cargo.toml ./server/
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
+RUN sed -i '/^targets = / s/\]/, "x86_64-unknown-linux-musl"\]/' rust-toolchain.toml
 RUN cargo build --release
 
 # actual build
@@ -30,9 +34,8 @@ COPY . .
 RUN cd app && trunk build --release
 RUN cargo build --release --bin server
 
-# not much bigger than alpine, avoids musl issues
-FROM debian:stable-slim as runtime
+FROM scratch
 
-COPY --from=build /work/target/release/server /usr/bin/server
+COPY --from=build /work/target/x86_64-unknown-linux-musl/release/server /server
 
-ENTRYPOINT [ "server" ]
+ENTRYPOINT [ "/server" ]
