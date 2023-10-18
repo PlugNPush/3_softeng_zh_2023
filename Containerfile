@@ -2,20 +2,23 @@
 # https://peterprototypes.com/blog/rust-dockerfile-boilerplate/
 
 # debian based
-FROM docker.io/rust:latest AS build
+FROM docker.io/rust:1.73-buster AS build
 
-WORKDIR /work
+# I'd rather take this from the TARGETPLATFORM arg, but that needs to be 
+# further massaged which is not nicely possible within the constraints 
+# of a containerfile (and the --arch arg does not seem to get passed 
+# along, at least not in buildah + TARGETARCH is wrong).
+ARG ARCH=x86_64
+
+# need to build trunk from source for multiarch (or provide prebuilt 
+# binaries ourselves)
+RUN cargo install --locked trunk
+RUN cargo install --locked wasm-bindgen-cli
 
 ENV CARGO_BUILD_RUSTFLAGS="-C target-feature=+crt-static"
-ENV CARGO_BUILD_TARGET="x86_64-unknown-linux-musl"
+ENV CARGO_BUILD_TARGET="$ARCH-unknown-linux-musl"
 
-ENV TRUNK_ARCHIVE=trunk-x86_64-unknown-linux-gnu.tar.gz
-ENV TRUNK_VERSION=0.17.5
-ENV TRUNK_SHA256_SUM=c675099200ff4e13579e4a3fbfbb6dc11375a4b779c2a9efd374f61d360ac7c7
-
-RUN curl -L -O --proto '=https' --tlsv1.2 -sSf "https://github.com/thedodd/trunk/releases/download/v$TRUNK_VERSION/$TRUNK_ARCHIVE"
-RUN echo "$TRUNK_SHA256_SUM  $TRUNK_ARCHIVE" | sha256sum -c - || exit 1
-RUN tar xf "$TRUNK_ARCHIVE" -C /bin 
+WORKDIR /work
 
 # dummy build to get the dependencies compiled and cached
 ENV CARGO_CARGO_NEW_VCS="none"
@@ -26,16 +29,17 @@ RUN cargo new --lib models && \
 COPY app/Cargo.toml ./app/
 COPY server/Cargo.toml ./server/
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
-RUN sed -i '/^targets = / s/\]/, "x86_64-unknown-linux-musl"\]/' rust-toolchain.toml
+RUN sed -i "/^targets = / s/\]/, \"$CARGO_BUILD_TARGET\"\]/" rust-toolchain.toml
 RUN cargo build --release
 
 # actual build
 COPY . .
 RUN cd app && trunk build --release
 RUN cargo build --release --bin server
+RUN cp "/work/target/$CARGO_BUILD_TARGET/release/server" /server
 
 FROM scratch
 
-COPY --from=build /work/target/x86_64-unknown-linux-musl/release/server /server
+COPY --from=build /server /server
 
 ENTRYPOINT [ "/server" ]
