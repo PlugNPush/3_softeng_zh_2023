@@ -6,7 +6,7 @@ format:
   stage: test
   needs: []
   rules:
-    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_ID
   script:
     - cargo fmt --check
 
@@ -14,7 +14,7 @@ lint:
   stage: test
   needs: []
   rules:
-    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_ID
   script:
     - cargo clippy -- -D warnings
 
@@ -22,7 +22,7 @@ test:
   stage: test
   needs: []
   rules:
-    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_ID
   script:
     - cargo test
 
