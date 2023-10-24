@@ -9,6 +9,8 @@ cd "$(git rev-parse --show-toplevel)"
 # read version from Cargo.toml
 version=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
 
+# GITLAB_ACCESS_TOKEN comes from Settings > CI/CD > Variables
+git remote set-url origin "https://oauth2:${GITLAB_ACCESS_TOKEN}@gitlab.switch.ch/${CI_PROJECT_PATH}"
 git config user.name  "Release Bot"
 git config user.email "release.bot@gitlab.local"
 
