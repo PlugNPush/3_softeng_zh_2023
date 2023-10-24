@@ -12,8 +12,8 @@ fi
 
 ./dev/setup.sh
 
-# cargo-binstall should be available from the setup script.
-# We need this to cross-compile for aarch64.
+# dependencies for cross compilation
+apt-get -y install podman
 cargo binstall -y cross
 
 cross build --release --target "$TARGET" --bin server

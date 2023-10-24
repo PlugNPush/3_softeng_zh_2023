@@ -27,32 +27,20 @@ You might want to quickly familiarize yourself with the following dev tools:
 
 ## Installation
 
-There are two straight-forward ways to install / run a release build of the application.
-There are prebuilt binaries to download for `x86_64-unknown-linux-gnu`.
-There is also a Containerfile, but no published image, so you need to build it yourself.
+The straightforward way to install a release build of the application is to download
+the prebuilt binaries for `x86_64` and `aarch64` (Linux) on the [Releases page].
 
-### Download the prebuilt binary
+[Releases page]: https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/releases
 
-Navigate [here][main-pipelines], where all pipelines for the main branch are listed.
-Pick the latest one, click on the build job and browse the artifacts.
-The binary should be there for you to download.
-
-[main-pipelines]: https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/pipelines?page=1&scope=all&ref=main
-
-### Build a container using Containerfile
-
-Clone the repository and do a podman or docker build.
-Next, run it. The port inside the container is 4000.
-Example:
+Alternatively, you can build a container image using the provided Containerfile. Example:
 
 ```sh
 podman build -t softw-eng .
-podman run -it --rm --init -p 4000:4000 softw-eng
+podman run -it --rm -p 4000:4000 softw-eng
 ```
 
 ## Usage
 
-Once you got a hold of a prebuilt binary, everything's in there.
 Run the executable to start the server (`--help` works as expected).
 Navigate to `localhost:4000` (or the port you configured) to use the GUI.
 You can add and delete temperature measurements for demonstration, as well as navigate to the embedded documentation.
