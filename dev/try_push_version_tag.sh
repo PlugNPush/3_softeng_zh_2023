@@ -9,8 +9,8 @@ cd "$(git rev-parse --show-toplevel)"
 # read version from Cargo.toml
 version=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
 
-export GIT_AUTHOR_NAME="Release Bot"
-export GIT_AUTHOR_EMAIL="release.bot@gitlab.local"
+git config user.name  "Release Bot"
+git config user.email "release.bot@gitlab.local"
 
 # grep for version in output of git tag
 if git tag | grep -q "^$version$"; then
