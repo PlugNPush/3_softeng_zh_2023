@@ -1,7 +1,5 @@
 use leptos::*;
 
-use crate::components::FlexSpace;
-
 mod delete_all_button;
 mod documentation_button;
 mod insert_random_button;
@@ -17,12 +15,12 @@ use title::Title;
 #[component]
 pub fn TitleBar() -> impl IntoView {
     view! {
-        <div class="flex gap-2 p-2 w-full">
-            <FlexSpace />
+        <div class="flex flex-col md:flex-row gap-2 p-2 w-full">
+            <div class="hidden md:flex flex-1" />
 
             <Title />
 
-            <div class="flex-grow flex-1 flex gap-2 justify-end">
+            <div class="flex flex-1 gap-2 self-center md:justify-end">
                 <ReloadButton />
                 <InsertRandomButton />
                 <DeleteAllButton />

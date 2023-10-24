@@ -2,6 +2,8 @@
 # https://github.com/thedodd/trunk/blob/master/Trunk.toml
 
 [serve]
+# enable accessing the server from other devices on the network
+address = "0.0.0.0"
 port = 3000
 
 [watch]

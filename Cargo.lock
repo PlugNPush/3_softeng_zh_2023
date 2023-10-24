@@ -136,7 +136,7 @@ checksum = "a4668cab20f66d8d020e1fbc0ebe47217433c1b6c8f2040faf858554e394ace6"
 
 [[package]]
 name = "app"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "console_error_panic_hook",
  "gloo",
@@ -734,7 +734,7 @@ dependencies = [
 
 [[package]]
 name = "docs"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "mdbook",
  "rust-embed",
@@ -1821,7 +1821,7 @@ dependencies = [
 
 [[package]]
 name = "models"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "chrono",
  "rand",
@@ -2622,7 +2622,7 @@ dependencies = [
 
 [[package]]
 name = "server"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "axum",
  "chrono",
