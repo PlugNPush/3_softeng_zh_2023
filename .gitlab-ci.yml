@@ -26,20 +26,6 @@ test:
   script:
     - cargo test
 
-# build
-
-pages:
-  stage: build
-  needs: []
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  script:
-    - ./dev/setup.sh
-    - mdbook build docs --dest-dir ../public
-  artifacts:
-    paths:
-      - public
-
 # deploy, triggered by pushing a tag
 
 build-app:
@@ -96,3 +82,15 @@ release-server-binaries:
         --tag-name $CI_COMMIT_TAG \
         --assets-link "{\"name\":\"server-x86_64\", \"filepath\":\"server-x86_64\", \"url\":\"https://gitlab.com/some/repo/-/jobs/`cat job_id_x86_64.txt`/artifacts/download\"}"
         --assets-link "{\"name\":\"server-aarch64\",\"filepath\":\"server-aarch64\",\"url\":\"https://gitlab.com/some/repo/-/jobs/`cat job_id_aarch64.txt`/artifacts/download\"}"
+
+# pages
+
+pages:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - ./dev/setup.sh
+    - mdbook build docs --dest-dir ../public
+  artifacts:
+    paths:
+      - public
