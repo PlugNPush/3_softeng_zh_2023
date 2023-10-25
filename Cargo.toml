@@ -3,7 +3,7 @@ members = ["models", "server", "app", "docs"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "SoftwEng Project - temperature sensor"
 license = "Unlicense"
