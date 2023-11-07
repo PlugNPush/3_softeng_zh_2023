@@ -6,6 +6,8 @@ The data can be viewed with a web-based GUI.
 
 The architecture documentation is deployed on [GitLab Pages](https://hslu.pages.switch.ch/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/overview.html).
 
+There are also some unrelated issues, due to hw during the course.
+
 ## Contributing
 
 Getting setup for development should be as easy as running `./dev/setup.sh`.
