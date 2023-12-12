@@ -11,7 +11,7 @@ pub fn ReloadButton() -> impl IntoView {
     let store = use_store();
 
     view! {
-        <IconButton on:click=move |_| store.dispatch(Action::Reload) >
+        <IconButton on:click=move |_| store.dispatch(Action::Reload) aria_label="reload">
             <ReloadIcon/>
         </IconButton>
     }

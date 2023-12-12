@@ -43,3 +43,7 @@ podman-run:
 dive:
     # dive is a great container image inspection tool
     dive podman://softw-eng
+
+# app must be running for this to work
+playwright-test:
+    (cd e2e && npx playwright test)

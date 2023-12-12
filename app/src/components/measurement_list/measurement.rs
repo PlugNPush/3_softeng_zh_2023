@@ -17,6 +17,7 @@ pub fn Measurement(idx: usize, measurement: TemperatureMeasurement) -> impl Into
     view! {
         <div
             class="flex flex-col gap-2 absolute"
+            aria-label="measurement"
             style:top=move || format!("{}em", idx * 5)
             style:transition="transform 0.2s ease-in"
             style:transform=move || {

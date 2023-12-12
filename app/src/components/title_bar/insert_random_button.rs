@@ -11,7 +11,7 @@ pub fn InsertRandomButton() -> impl IntoView {
     let store = use_store();
 
     view! {
-        <IconButton on:click=move |_| store.dispatch(Action::InsertRandom) >
+        <IconButton on:click=move |_| store.dispatch(Action::InsertRandom) aria_label="insert">
             <PlusIcon />
         </IconButton>
     }

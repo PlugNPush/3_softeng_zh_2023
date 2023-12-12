@@ -19,6 +19,7 @@ It's recommended to run `zellij` in a standalone terminal emulator to avoid keyb
 You can also figure out how to run everything manually by reading `./dev/zellij.kdl` and the `justfile`.
 
 You might want to quickly familiarize yourself with the following dev tools:
+
 - [just], a simple command runner
 - [zellij], a terminal workspace / multiplexer
 
@@ -45,6 +46,20 @@ Run the executable to start the server (`--help` works as expected).
 Navigate to `localhost:4000` (or the port you configured) to use the GUI.
 You can add and delete temperature measurements for demonstration, as well as navigate to the embedded documentation.
 The REST API is not documented, you have to check the source if you want to make API requests without the GUI.
+
+## Testing
+
+There are examples of several different testing approaches:
+
+| approach    | location                      |
+| ----------- | ----------------------------- |
+| unit        | `server/src/state.rs`         |
+| integration | `server/tests/integration.rs` |
+| end-to-end  | `e2e/*`                       |
+
+Note that the end-to-end tests are not polished to the point of being easily automatable.
+The serve as a proof of concept.
+The app must be run in development mode locally (localhost:3000) before the tests work.
 
 ## License
 
