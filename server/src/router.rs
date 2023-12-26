@@ -1,3 +1,5 @@
+use std::{ops::Deref, sync::Arc};
+
 use axum::{
     routing::{delete, get, post},
     Router,
@@ -8,7 +10,8 @@ use crate::{
     state::AppState,
 };
 
-pub fn api_router() -> Router {
+pub fn api_router(state: Arc<AppState>) -> Router {
+    let state: AppState = state.deref().clone();
     Router::new()
         // handlers
         .route("/measurements", get(tm::get_all))
@@ -20,5 +23,5 @@ pub fn api_router() -> Router {
         .route("/notifications", get(notifications::subscribe))
         //
         // shared state
-        .with_state(AppState::default())
+        .with_state(state)
 }

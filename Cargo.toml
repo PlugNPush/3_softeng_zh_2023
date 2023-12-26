@@ -1,5 +1,5 @@
 [workspace]
-members = ["models", "server", "app", "docs"]
+members = ["models", "server", "app", "docs", "serial-comm", "mqtt-protocol"]
 resolver = "2"
 
 [workspace.package]

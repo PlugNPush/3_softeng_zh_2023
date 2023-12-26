@@ -1,8 +1,11 @@
 use axum::{error_handling::HandleErrorLayer, http, Router};
 use clap::Parser;
-use server::{config::Config, docs::docs_handler, frontend::frontend_handler, router::api_router};
-use std::net::SocketAddr;
-use tokio::signal;
+use server::{
+    config::Config, docs::docs_handler, frontend::frontend_handler, mqtt, router::api_router,
+    state::AppState,
+};
+use std::{net::SocketAddr, sync::Arc};
+use tokio::{select, signal, task};
 use tower::{BoxError, ServiceBuilder};
 use tower_governor::{errors::display_error, governor::GovernorConfigBuilder, GovernorLayer};
 use tower_http::{compression::CompressionLayer, trace::TraceLayer};
@@ -10,8 +13,23 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
 async fn main() {
-    let config = Config::parse();
+    let config = Arc::new(Config::parse());
+    let state = Arc::new(AppState::default());
 
+    let mqtt_task = task::spawn(run_mqtt(config.clone(), state.clone()));
+    let server_task = task::spawn(run_server(config.clone(), state));
+
+    select! {
+        _ = mqtt_task => {},
+        _ = server_task => {}
+    };
+}
+
+async fn run_mqtt(config: Arc<Config>, state: Arc<AppState>) {
+    mqtt::subscribe(&config.mqtt_url, config.mqtt_port, state).await;
+}
+
+async fn run_server(config: Arc<Config>, state: Arc<AppState>) {
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::from(&config.log_level))
         .with(tracing_subscriber::fmt::layer())
@@ -36,7 +54,7 @@ async fn main() {
         });
 
     let router = Router::new()
-        .nest("/api", api_router().layer(TraceLayer::new_for_http()))
+        .nest("/api", api_router(state).layer(TraceLayer::new_for_http()))
         .nest("/docs", Router::new().fallback(docs_handler))
         .fallback(frontend_handler)
         .layer(CompressionLayer::new())
@@ -74,7 +92,7 @@ async fn shutdown_signal() {
     #[cfg(not(unix))]
     let terminate = std::future::pending::<()>();
 
-    tokio::select! {
+    select! {
         _ = ctrl_c => {},
         _ = terminate => {},
     }

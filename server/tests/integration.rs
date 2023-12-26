@@ -1,9 +1,9 @@
-use std::net::TcpListener;
+use std::{net::TcpListener, sync::Arc};
 
 use axum::{http::Request, Router};
 use futures::StreamExt;
 use models::{Notification, TemperatureMeasurement};
-use server::router::api_router;
+use server::{router::api_router, state::AppState};
 use tokio_tungstenite::tungstenite;
 
 #[tokio::test]
@@ -11,7 +11,8 @@ async fn new_measurement_causes_notification() {
     let listener = TcpListener::bind("0.0.0.0:0").unwrap();
     let server_addr = listener.local_addr().unwrap();
 
-    let router = Router::new().nest("/api", api_router());
+    let state = Arc::new(AppState::default());
+    let router = Router::new().nest("/api", api_router(state));
 
     // spawn an actual API server on a random port
     tokio::spawn(async move {

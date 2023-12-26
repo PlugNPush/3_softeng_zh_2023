@@ -21,3 +21,6 @@ pub mod frontend;
 
 /// This module contains the routes to the documentation.
 pub mod docs;
+
+/// Module subscribes to device measurements from an MQTT broker.
+pub mod mqtt;

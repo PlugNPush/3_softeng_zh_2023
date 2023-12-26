@@ -14,6 +14,7 @@ clap = { version = "4.3.4", features = ["derive", "env"] }
 docs = { path = "../docs" }
 mime_guess = "2.0.4"
 models = { path = "../models" }
+rumqttc = "0.23.0"
 rust-embed.workspace = true
 serde = { workspace = true }
 serde_json = { workspace = true }
