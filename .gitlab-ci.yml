@@ -49,11 +49,18 @@ build:
     - TARGET=aarch64-unknown-linux-gnu ./dev/release.sh
     - TARGET=x86_64-unknown-linux-gnu ./dev/release.sh
     - echo "${CI_JOB_ID}" > job_id.txt
+    # controller formware
+    - cd controller
+    - cargo build --release
+    - git clone https://github.com/rej696/elf2uf2.git
+    - (cd elf2uf2 ; make build)
+    - ./elf2uf2/elf2uf2 target/thumbv6m-none-eabi/release/controller ../controller.uf2
   artifacts:
     paths:
       - server-aarch64-unknown-linux-gnu
       - server-x86_64-unknown-linux-gnu
       - job_id.txt
+      - controller.uf2
 
 cut-release:
   stage: deploy
@@ -62,13 +69,13 @@ cut-release:
   rules:
     - if: $CI_COMMIT_TAG
   script:
-    - echo "DEBUG {\"name\":\"server\",\"url\":\"https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/jobs/$(cat job_id.txt)/artifacts/download\",\"link_type\":\"other\"}"
+    - echo "DEBUG {\"name\":\"server_and_controller_builds\",\"url\":\"https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/jobs/$(cat job_id.txt)/artifacts/download\",\"link_type\":\"other\"}"
     - sleep 5 # wait for artifacts to be uploaded, just to be sure
     - |
       release-cli create \
         --name "Release $CI_COMMIT_TAG" \
         --tag-name $CI_COMMIT_TAG \
-        --assets-link "{\"name\":\"server\",\"url\":\"https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/jobs/$(cat job_id.txt)/artifacts/download\",\"link_type\":\"other\"}"
+        --assets-link "{\"name\":\"server_and_controller_builds\",\"url\":\"https://gitlab.switch.ch/hslu/edu/bachelor-engineering-and-architecture/tsm_softweng/tsm_softweng_aut23/3_softeng_zh_2023/3_softeng_zh_2023/-/jobs/$(cat job_id.txt)/artifacts/download\",\"link_type\":\"other\"}"
 
 # pages
 
